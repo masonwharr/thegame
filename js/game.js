@@ -122,6 +122,7 @@ $(document).ready(function() {
   $('.movesBlock').html('<p class="movesText">' + 'Moves: ' + moves.length + '</p>');
   // Restart button.
   $('.restart').click(function() {
+     cards = 8;
     resetTimer()
     $('.card').remove();
     $('.card').css("pointer-events", "auto");
