@@ -72,13 +72,20 @@ $(document).ready(function() {
       $('.card').css("pointer-events", "none");
       $('.cardClicked').each(function() {
         cardsArray.push($(this));
-        console.log(cardsArray);
       });
       // Check if they are the same card.
       if (cardsArray[1][0].textContent == cardsArray[0][0].textContent) {
         cards = cards - 1;
         if (cards == 0) {
-          window.alert('Congrats. You won!');
+          if (moves.length <= 10) {
+      var score = ('Rating: ' + starItem + starItem + starItem);
+    } else if (moves.length <= 14) {
+      var score = ('Rating: ' + starItem + starItem);
+    } else {
+      var score = ('Rating: ' + starItem);
+    }
+    var rightScore = moves.length + 1;
+          window.alert('Congrats. You won! ' + 'Moves:' + rightScore + '  ' + score + '  ' + $('.countUp')[0].innerText);
         }
         $(".cardClicked").addClass('cardRight');
         $('.cardClicked').removeClass("cardClicked");
@@ -122,7 +129,6 @@ $(document).ready(function() {
     $('.cardClicked').removeClass("cardClicked");
     moves = [];
     moves.length = 0;
-    console.log(moves.length);
     $('.movesBlock').html('<p class="movesText">' + 'Moves: ' + moves.length + '</p>');
     $('.rating').html('Rating:' + starItem + starItem + starItem);
     // Reshuffles on restart.
