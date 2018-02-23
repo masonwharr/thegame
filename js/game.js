@@ -37,6 +37,25 @@ $(document).ready(function() {
       $('.countUp').html('<p>' + 'Timer: ' + mins + ':' + secs + '</p>');
     }, 1000);
   };
+  function restart(){
+  cards = 8;
+    $('.card').remove();
+    $('.card').css("pointer-events", "auto");
+    var cardsArray = [];
+    $('.cardClicked').removeClass("cardClicked");
+    moves = [];
+    moves.length = 0;
+    $('.movesBlock').html('<p class="movesText">' + 'Moves: ' + moves.length + '</p>');
+    $('.rating').html('Rating:' + starItem + starItem + starItem);
+    // Reshuffles on restart.
+    for (i = 0; i < items.length; i++) {
+      $('<div class="card"/>').html('<span class="cardText">' + items[i] + '</span>').appendTo('.board');
+    };
+    items = shuffle(items);
+    for (i = 0; i < items.length; i++) {
+      $('<div class="card"/>').html('<span class="cardText">' + items[i] + '</span>').appendTo('.board');
+    };
+  };
   // Reset function for timer.
   function resetTimer() {
     clearInterval(timer);
@@ -85,7 +104,13 @@ $(document).ready(function() {
       var score = ('Rating: ' + starItem);
     }
     var rightScore = moves.length + 1;
-          window.alert('Congrats. You won! ' + 'Moves:' + rightScore + '  ' + score + '  ' + $('.countUp')[0].innerText);
+
+          if (window.confirm('Congrats. You won! ' + 'Moves:' + rightScore + '  ' + score + '  ' + $('.countUp')[0].innerText + 'Click Ok to restart or no to cancel')){
+              setTimeout(function() {
+          resetTimer();
+restart();
+  }, 1000);
+          }
         }
         $(".cardClicked").addClass('cardRight');
         $('.cardClicked').removeClass("cardClicked");
@@ -120,25 +145,10 @@ $(document).ready(function() {
     }
   });
   $('.movesBlock').html('<p class="movesText">' + 'Moves: ' + moves.length + '</p>');
+  
   // Restart button.
   $('.restart').click(function() {
-     cards = 8;
-    resetTimer()
-    $('.card').remove();
-    $('.card').css("pointer-events", "auto");
-    var cardsArray = [];
-    $('.cardClicked').removeClass("cardClicked");
-    moves = [];
-    moves.length = 0;
-    $('.movesBlock').html('<p class="movesText">' + 'Moves: ' + moves.length + '</p>');
-    $('.rating').html('Rating:' + starItem + starItem + starItem);
-    // Reshuffles on restart.
-    for (i = 0; i < items.length; i++) {
-      $('<div class="card"/>').html('<span class="cardText">' + items[i] + '</span>').appendTo('.board');
-    };
-    items = shuffle(items);
-    for (i = 0; i < items.length; i++) {
-      $('<div class="card"/>').html('<span class="cardText">' + items[i] + '</span>').appendTo('.board');
-    };
+resetTimer();
+restart();
   });
 });
